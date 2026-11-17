@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TournoisE_Sports.Common;
-using TournoisE_Sports.DTOs;
-using TournoisE_Sports.Models;
-using TournoisE_Sports.Repositories.Interfaces;
+using Esport.Application.Commands.Equipe;
+using Esport.Application.Commands.Joueur;
+using Esport.Application.DTOs;
+using Esport.Application.Queries.Equipe;
+using MediatR;
 
 namespace TournoisE_Sports.Controllers;
 
@@ -12,108 +13,60 @@ namespace TournoisE_Sports.Controllers;
 [Authorize]
 public class EquipesController : ControllerBase
 {
-    private readonly IEquipeRepository _equipes;
-    private readonly IJoueurRepository _joueurs;
-
-    public EquipesController(IEquipeRepository equipes, IJoueurRepository joueurs)
-    {
-        _equipes = equipes;
-        _joueurs = joueurs;
-    }
+    private readonly IMediator _mediator;
+    public EquipesController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] PaginationParams pagination, CancellationToken ct)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10, CancellationToken ct = default)
     {
-        var result = await _equipes.GetPagedAsync(pagination, ct);
-        return Ok(new
-        {
-            items = result.Items.Select(e => new EquipeDto { Id = e.Id, Nom = e.Nom, Tag = e.Tag, DateCreation = e.DateCreation, NombreJoueurs = e.Joueurs.Count }),
-            page = result.Page,
-            pageSize = result.PageSize,
-            totalCount = result.TotalCount,
-            totalPages = result.TotalPages
-        });
+        var result = await _mediator.Send(new GetEquipesQuery(new Esport.Application.Common.PaginationParams { Page = page, PageSize = pageSize }), ct);
+        return Ok(result);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
+    public async Task<IActionResult> GetById(int id, CancellationToken ct = default)
     {
-        var equipe = await _equipes.GetByIdWithJoueursAsync(id, ct);
-        if (equipe is null) return NotFound(new { message = $"Equipe {id} introuvable." });
-        return Ok(new EquipeDto { Id = equipe.Id, Nom = equipe.Nom, Tag = equipe.Tag, DateCreation = equipe.DateCreation, NombreJoueurs = equipe.Joueurs.Count });
+        var equipe = await _mediator.Send(new GetEquipeByIdQuery(id), ct);
+        return Ok(equipe);
     }
 
     [HttpPost]
     [Authorize(Roles = "Admin,Organisateur")]
-    public async Task<IActionResult> Create([FromBody] CreateEquipeDto dto, CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateEquipeDto dto, CancellationToken ct = default)
     {
-        var equipe = new Equipe { Nom = dto.Nom, Tag = dto.Tag, DateCreation = DateTime.UtcNow };
-        await _equipes.AddAsync(equipe, ct);
-        return StatusCode(StatusCodes.Status201Created, new EquipeDto { Id = equipe.Id, Nom = equipe.Nom, Tag = equipe.Tag, DateCreation = equipe.DateCreation });
+        var equipe = await _mediator.Send(new CreateEquipeCommand(dto), ct);
+        return StatusCode(StatusCodes.Status201Created, equipe);
     }
 
     [HttpPut("{id:int}")]
     [Authorize(Roles = "Admin,Organisateur")]
-    public async Task<IActionResult> Update(int id, [FromBody] UpdateEquipeDto dto, CancellationToken ct)
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateEquipeDto dto, CancellationToken ct = default)
     {
-        var equipe = await _equipes.GetByIdAsync(id, ct);
-        if (equipe is null) return NotFound(new { message = $"Equipe {id} introuvable." });
-        equipe.Nom = dto.Nom;
-        equipe.Tag = dto.Tag;
-        await _equipes.UpdateAsync(equipe, ct);
-        return Ok(new EquipeDto { Id = equipe.Id, Nom = equipe.Nom, Tag = equipe.Tag, DateCreation = equipe.DateCreation });
+        var equipe = await _mediator.Send(new UpdateEquipeCommand(id, dto), ct);
+        return Ok(equipe);
     }
 
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Delete(int id, CancellationToken ct)
+    public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
-        var equipe = await _equipes.GetByIdAsync(id, ct);
-        if (equipe is null) return NotFound(new { message = $"Equipe {id} introuvable." });
-        try
-        {
-            await _equipes.DeleteAsync(equipe, ct);
-        }
-        catch (Exception ex) when (ex.InnerException?.Message.Contains("REFERENCE") == true || ex.InnerException?.Message.Contains("constraint") == true)
-        {
-            return Conflict(new { message = "Impossible de supprimer : l'équipe est liée à des inscriptions, joueurs ou matchs." });
-        }
+        await _mediator.Send(new DeleteEquipeCommand(id), ct);
         return NoContent();
     }
 
     [HttpGet("{id:int}/joueurs")]
-    public async Task<IActionResult> GetJoueurs(int id, [FromQuery] PaginationParams pagination, CancellationToken ct)
+    public async Task<IActionResult> GetJoueurs(int id, [FromQuery] int page = 1, [FromQuery] int pageSize = 10, CancellationToken ct = default)
     {
-        var equipe = await _equipes.GetByIdAsync(id, ct);
-        if (equipe is null) return NotFound(new { message = $"Equipe {id} introuvable." });
-
-        var result = await _joueurs.GetPagedAsync(pagination, id, ct);
-        return Ok(new
-        {
-            items = result.Items.Select(j => new JoueurDto { Id = j.Id, Pseudo = j.Pseudo, Nom = j.Nom, Prenom = j.Prenom, Email = j.Email, EquipeId = j.EquipeId, NomEquipe = j.Equipe?.Nom }),
-            page = result.Page,
-            pageSize = result.PageSize,
-            totalCount = result.TotalCount,
-            totalPages = result.TotalPages
-        });
+        var result = await _mediator.Send(new GetJoueursByEquipeQuery(id, new Esport.Application.Common.PaginationParams { Page = page, PageSize = pageSize }), ct);
+        return Ok(result);
     }
 
     [HttpPost("{id:int}/joueurs")]
     [Authorize(Roles = "Admin,Organisateur")]
-    public async Task<IActionResult> AddJoueur(int id, [FromBody] CreateJoueurDto dto, CancellationToken ct)
+    public async Task<IActionResult> AddJoueur(int id, [FromBody] CreateJoueurDto dto, CancellationToken ct = default)
     {
-        var equipe = await _equipes.GetByIdAsync(id, ct);
-        if (equipe is null) return NotFound(new { message = $"Equipe {id} introuvable." });
-
-        var joueur = new Joueur
-        {
-            Pseudo = dto.Pseudo,
-            Nom = dto.Nom,
-            Prenom = dto.Prenom,
-            Email = dto.Email,
-            EquipeId = id
-        };
-        await _joueurs.AddAsync(joueur, ct);
-        return StatusCode(StatusCodes.Status201Created, new JoueurDto { Id = joueur.Id, Pseudo = joueur.Pseudo, Nom = joueur.Nom, Prenom = joueur.Prenom, Email = joueur.Email, EquipeId = joueur.EquipeId, NomEquipe = equipe.Nom });
+        dto.EquipeId = id;
+        var joueur = await _mediator.Send(new CreateJoueurCommand(dto), ct);
+        return StatusCode(StatusCodes.Status201Created, joueur);
     }
 }

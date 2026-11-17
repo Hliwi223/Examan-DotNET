@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using TournoisE_Sports.Data;
-using TournoisE_Sports.Data.Seed;
-using TournoisE_Sports.Repositories.Implementations;
-using TournoisE_Sports.Repositories.Interfaces;
+using Esport.Infrastructure.Data;
+using Esport.Infrastructure.Data.Seed;
+using Esport.Application.Interfaces;
+using Esport.Infrastructure.Repositories.Implementations;
+using MediatR;
 using TournoisE_Sports.Services;
+using TournoisE_Sports.Middleware;
 
 namespace TournoisE_Sports;
 
@@ -18,7 +20,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // --- Connexion ---
+        // --- Connexion (DbContext d�finie dans Esport.Infrastructure) ---
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -42,16 +44,16 @@ public class Program
         .AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtIssuer,
-                    ValidAudience = jwtAudience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
-                };
-            });
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            };
+        });
 
         builder.Services.AddAuthorization();
 
@@ -62,15 +64,14 @@ public class Program
                       .AllowAnyHeader()
                       .AllowAnyMethod()));
 
-        // --- Repositories & Services ---
-        builder.Services.AddScoped<IJeuRepository, JeuRepository>();
-        builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();
-        builder.Services.AddScoped<IJoueurRepository, JoueurRepository>();
-        builder.Services.AddScoped<ITournoiRepository, TournoiRepository>();
-        builder.Services.AddScoped<IInscriptionRepository, InscriptionRepository>();
-        builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+        // --- Unit of Work + Repositories (Infrastructure) ---
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // --- JwtService (utilis� par AuthController) ---
         builder.Services.AddSingleton<IJwtService, JwtService>();
-        builder.Services.AddScoped<IRankingService, RankingService>();
+
+        // --- MediatR (CQRS) — scan l'assembly Application pour les commandes/queries/handlers ---
+        builder.Services.AddMediatR(typeof(Esport.Application.Interfaces.IUnitOfWork).Assembly);
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
@@ -102,7 +103,7 @@ public class Program
 
         var app = builder.Build();
 
-        // --- Seed ---
+        // --- Seed (ex�cut� au d�marrage) ---
         await DataSeeder.SeedAsync(app.Services, app.Configuration, app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("DataSeeder"));
 
         // --- Pipeline ---
@@ -111,6 +112,9 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        // Middleware global de gestion des exceptions (domain exceptions -> codes HTTP)
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.UseHttpsRedirection();
         app.UseCors("AngularClient");

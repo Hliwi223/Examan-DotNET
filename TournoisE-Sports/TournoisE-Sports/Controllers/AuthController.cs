@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TournoisE_Sports.DTOs;
+using Esport.Application.DTOs;
 using TournoisE_Sports.Services;
 
 namespace TournoisE_Sports.Controllers;
@@ -21,34 +21,30 @@ public class AuthController : ControllerBase
 
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto, CancellationToken ct)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest dto, CancellationToken ct)
     {
         var existing = await _userManager.FindByEmailAsync(dto.Email);
         if (existing is not null)
-            return Conflict(new { message = $"L'utilisateur {dto.Email} existe déjà." });
+            return Conflict(new { message = $"L'utilisateur {dto.Email} existe d\u00e9j\u00e0." });
 
         var user = new IdentityUser { UserName = dto.Email, Email = dto.Email, EmailConfirmed = true };
         var result = await _userManager.CreateAsync(user, dto.Password);
         if (!result.Succeeded)
             return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
 
-        // Rôle par défaut "Joueur"
-        if (await _userManager.FindByEmailAsync(dto.Email) is not null)
+        // R\u00f4le par d\u00e9faut "Joueur" (ignor\u00e9 si le seed n'a pas encore cr\u00e9\u00e9 le r\u00f4le)
+        try
         {
-            var roleCheck = await _userManager.IsInRoleAsync(user, "Joueur");
-            if (!roleCheck && await _userManager.FindByEmailAsync(dto.Email) is not null)
-            {
-                // Le rôle peut ne pas exister encore si Seed n'a pas tourné — on ignore l'erreur
-                await _userManager.AddToRoleAsync(user, "Joueur");
-            }
+            await _userManager.AddToRoleAsync(user, "Joueur");
         }
+        catch { }
 
-        return StatusCode(StatusCodes.Status201Created, new { message = "Compte créé. Connectez-vous pour obtenir votre token." });
+        return StatusCode(StatusCodes.Status201Created, new { message = "Compte cr\u00e9\u00e9. Connectez-vous pour obtenir votre token." });
     }
 
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto, CancellationToken ct)
+    public async Task<IActionResult> Login([FromBody] LoginRequest dto, CancellationToken ct)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user is null)
@@ -60,7 +56,7 @@ public class AuthController : ControllerBase
 
         var roles = (await _userManager.GetRolesAsync(user)).ToList();
         var (token, expires) = _jwtService.CreateToken(user, roles);
-        return Ok(new AuthResponseDto
+        return Ok(new LoginResponse
         {
             Token = token,
             Email = user.Email ?? string.Empty,

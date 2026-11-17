@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TournoisE_Sports.DTOs;
+using Esport.Application.DTOs;
 
 namespace TournoisE_Sports.Controllers;
 
@@ -22,22 +22,22 @@ public class RolesController : ControllerBase
     [HttpGet]
     public IActionResult GetRoles()
     {
-        var roles = _roleManager.Roles.Select(r => new RoleDto { Id = r.Id, Name = r.Name ?? string.Empty }).ToList();
+        var roles = _roleManager.Roles.Select(r => new RoleDto { Id = r.Id, Nom = r.Name ?? string.Empty }).ToList();
         return Ok(roles);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto dto)
     {
-        if (await _roleManager.RoleExistsAsync(dto.Name))
-            return Conflict(new { message = $"Le rôle '{dto.Name}' existe déjà." });
+        if (await _roleManager.RoleExistsAsync(dto.Nom))
+            return Conflict(new { message = $"Le r\u00f4le '{dto.Nom}' existe d\u00e9j\u00e0." });
 
-        var role = new IdentityRole(dto.Name);
+        var role = new IdentityRole(dto.Nom);
         var result = await _roleManager.CreateAsync(role);
         if (!result.Succeeded)
             return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
 
-        return StatusCode(StatusCodes.Status201Created, new RoleDto { Id = role.Id, Name = role.Name! });
+        return StatusCode(StatusCodes.Status201Created, new RoleDto { Id = role.Id, Nom = role.Name! });
     }
 
     [HttpPost("assign")]
@@ -48,10 +48,10 @@ public class RolesController : ControllerBase
             return NotFound(new { message = $"Utilisateur '{dto.Email}' introuvable." });
 
         if (!await _roleManager.RoleExistsAsync(dto.Role))
-            return BadRequest(new { message = $"Le rôle '{dto.Role}' n'existe pas." });
+            return BadRequest(new { message = $"Le r\u00f4le '{dto.Role}' n'existe pas." });
 
         if (await _userManager.IsInRoleAsync(user, dto.Role))
-            return Conflict(new { message = $"L'utilisateur a déjà le rôle '{dto.Role}'." });
+            return Conflict(new { message = $"L'utilisateur a d\u00e9j\u00e0 le r\u00f4le '{dto.Role}'." });
 
         var result = await _userManager.AddToRoleAsync(user, dto.Role);
         if (!result.Succeeded)
@@ -68,7 +68,7 @@ public class RolesController : ControllerBase
             return NotFound(new { message = $"Utilisateur '{dto.Email}' introuvable." });
 
         if (!await _userManager.IsInRoleAsync(user, dto.Role))
-            return BadRequest(new { message = $"L'utilisateur ne possède pas le rôle '{dto.Role}'." });
+            return BadRequest(new { message = $"L'utilisateur ne poss\u00e8de pas le r\u00f4le '{dto.Role}'." });
 
         var result = await _userManager.RemoveFromRoleAsync(user, dto.Role);
         if (!result.Succeeded)

@@ -155,4 +155,12 @@ D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\refint\Tournois
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\TournoisE-Sports.pdb
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\TournoisE-Sports.genruntimeconfig.cache
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\ref\TournoisE-Sports.dll
-D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\MediatR.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\MediatR.Contracts.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Application.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Domain.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Infrastructure.dll
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Application.pdb
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Infrastructure.pdb
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Domain.pdb

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TournoisE_Sports.DTOs;
-using TournoisE_Sports.Repositories.Interfaces;
+using Esport.Application.Commands.Tournoi;
+using MediatR;
 
 namespace TournoisE_Sports.Controllers;
 
@@ -10,17 +10,14 @@ namespace TournoisE_Sports.Controllers;
 [Authorize]
 public class InscriptionsController : ControllerBase
 {
-    private readonly IInscriptionRepository _inscriptions;
-
-    public InscriptionsController(IInscriptionRepository inscriptions) => _inscriptions = inscriptions;
+    private readonly IMediator _mediator;
+    public InscriptionsController(IMediator mediator) => _mediator = mediator;
 
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin,Organisateur")]
-    public async Task<IActionResult> Delete(int id, CancellationToken ct)
+    public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
-        var inscription = await _inscriptions.GetByIdAsync(id, ct);
-        if (inscription is null) return NotFound(new { message = $"Inscription {id} introuvable." });
-        await _inscriptions.DeleteAsync(inscription, ct);
+        await _mediator.Send(new DeleteInscriptionCommand(id), ct);
         return NoContent();
     }
 }

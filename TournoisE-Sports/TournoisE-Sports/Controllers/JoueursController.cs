@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TournoisE_Sports.Common;
-using TournoisE_Sports.DTOs;
-using TournoisE_Sports.Repositories.Interfaces;
+using Esport.Application.Commands.Joueur;
+using Esport.Application.DTOs;
+using Esport.Application.Queries.Joueur;
+using MediatR;
 
 namespace TournoisE_Sports.Controllers;
 
@@ -11,63 +12,36 @@ namespace TournoisE_Sports.Controllers;
 [Authorize]
 public class JoueursController : ControllerBase
 {
-    private readonly IJoueurRepository _joueurs;
-    private readonly IEquipeRepository _equipes;
-
-    public JoueursController(IJoueurRepository joueurs, IEquipeRepository equipes)
-    {
-        _joueurs = joueurs;
-        _equipes = equipes;
-    }
+    private readonly IMediator _mediator;
+    public JoueursController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] PaginationParams pagination, [FromQuery] int? equipeId, CancellationToken ct)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] int? equipeId = null, CancellationToken ct = default)
     {
-        var result = await _joueurs.GetPagedAsync(pagination, equipeId, ct);
-        return Ok(new
-        {
-            items = result.Items.Select(j => new JoueurDto { Id = j.Id, Pseudo = j.Pseudo, Nom = j.Nom, Prenom = j.Prenom, Email = j.Email, EquipeId = j.EquipeId, NomEquipe = j.Equipe?.Nom }),
-            page = result.Page,
-            pageSize = result.PageSize,
-            totalCount = result.TotalCount,
-            totalPages = result.TotalPages
-        });
+        var result = await _mediator.Send(new GetJoueursQuery(new Esport.Application.Common.PaginationParams { Page = page, PageSize = pageSize }, equipeId), ct);
+        return Ok(result);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
+    public async Task<IActionResult> GetById(int id, CancellationToken ct = default)
     {
-        var joueur = await _joueurs.GetByIdAsync(id, ct);
-        if (joueur is null) return NotFound(new { message = $"Joueur {id} introuvable." });
-        return Ok(new JoueurDto { Id = joueur.Id, Pseudo = joueur.Pseudo, Nom = joueur.Nom, Prenom = joueur.Prenom, Email = joueur.Email, EquipeId = joueur.EquipeId, NomEquipe = joueur.Equipe?.Nom });
+        var joueur = await _mediator.Send(new GetJoueurByIdQuery(id), ct);
+        return Ok(joueur);
     }
 
     [HttpPut("{id:int}")]
     [Authorize(Roles = "Admin,Organisateur")]
-    public async Task<IActionResult> Update(int id, [FromBody] UpdateJoueurDto dto, CancellationToken ct)
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateJoueurDto dto, CancellationToken ct = default)
     {
-        var joueur = await _joueurs.GetByIdAsync(id, ct);
-        if (joueur is null) return NotFound(new { message = $"Joueur {id} introuvable." });
-
-        var equipe = await _equipes.GetByIdAsync(dto.EquipeId, ct);
-        if (equipe is null) return BadRequest(new { message = $"Equipe {dto.EquipeId} introuvable." });
-
-        joueur.Pseudo = dto.Pseudo;
-        joueur.Nom = dto.Nom;
-        joueur.Prenom = dto.Prenom;
-        joueur.Email = dto.Email;
-        joueur.EquipeId = dto.EquipeId;
-        await _joueurs.UpdateAsync(joueur, ct);
-        return Ok(new JoueurDto { Id = joueur.Id, Pseudo = joueur.Pseudo, Nom = joueur.Nom, Prenom = joueur.Prenom, Email = joueur.Email, EquipeId = joueur.EquipeId, NomEquipe = equipe.Nom });
+        var joueur = await _mediator.Send(new UpdateJoueurCommand(id, dto), ct);
+        return Ok(joueur);
     }
 
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Delete(int id, CancellationToken ct)
+    public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
     {
-        var joueur = await _joueurs.GetByIdAsync(id, ct);
-        if (joueur is null) return NotFound(new { message = $"Joueur {id} introuvable." });
-        await _joueurs.DeleteAsync(joueur, ct);
+        await _mediator.Send(new DeleteJoueurCommand(id), ct);
         return NoContent();
     }
 }
