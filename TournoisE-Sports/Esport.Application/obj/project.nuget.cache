@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "OzGAVihS6PA=",
+  "success": true,
+  "projectFilePath": "D:\\IIT\\DOTNET\\TournoisE-Sports\\Esport.Application\\Esport.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\besse\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
+    "C:\\Users\\besse\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -164,3 +164,4 @@ D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Infrastr
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Application.pdb
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Infrastructure.pdb
 D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\bin\Debug\net9.0\Esport.Domain.pdb
+D:\IIT\DOTNET\TournoisE-Sports\TournoisE-Sports\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.LoginDto",
+        "Type": "Esport.Application.DTOs.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.RegisterDto",
+        "Type": "Esport.Application.DTOs.RegisterRequest",
         "IsRequired": true
       }
     ],
@@ -40,22 +40,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -72,7 +62,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateEquipeDto",
+        "Type": "Esport.Application.DTOs.CreateEquipeDto",
         "IsRequired": true
       }
     ],
@@ -109,7 +99,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.UpdateEquipeDto",
+        "Type": "Esport.Application.DTOs.UpdateEquipeDto",
         "IsRequired": true
       }
     ],
@@ -145,22 +135,12 @@
         "IsRequired": true
       },
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -182,7 +162,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateJoueurDto",
+        "Type": "Esport.Application.DTOs.CreateJoueurDto",
         "IsRequired": true
       }
     ],
@@ -213,22 +193,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -245,7 +215,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateJeuDto",
+        "Type": "Esport.Application.DTOs.CreateJeuDto",
         "IsRequired": true
       }
     ],
@@ -282,7 +252,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.UpdateJeuDto",
+        "Type": "Esport.Application.DTOs.UpdateJeuDto",
         "IsRequired": true
       }
     ],
@@ -313,22 +283,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       },
@@ -371,7 +331,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.UpdateJoueurDto",
+        "Type": "Esport.Application.DTOs.UpdateJoueurDto",
         "IsRequired": true
       }
     ],
@@ -403,7 +363,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateMatchDto",
+        "Type": "Esport.Application.DTOs.CreateMatchDto",
         "IsRequired": true
       }
     ],
@@ -456,7 +416,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.UpdateScoreDto",
+        "Type": "Esport.Application.DTOs.UpdateScoreDto",
         "IsRequired": true
       }
     ],
@@ -482,7 +442,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateRoleDto",
+        "Type": "Esport.Application.DTOs.CreateRoleDto",
         "IsRequired": true
       }
     ],
@@ -498,7 +458,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.AssignRoleDto",
+        "Type": "Esport.Application.DTOs.AssignRoleDto",
         "IsRequired": true
       }
     ],
@@ -514,7 +474,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.AssignRoleDto",
+        "Type": "Esport.Application.DTOs.AssignRoleDto",
         "IsRequired": true
       }
     ],
@@ -529,22 +489,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       },
@@ -566,7 +516,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateTournoiDto",
+        "Type": "Esport.Application.DTOs.CreateTournoiDto",
         "IsRequired": true
       }
     ],
@@ -603,7 +553,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.UpdateTournoiDto",
+        "Type": "Esport.Application.DTOs.UpdateTournoiDto",
         "IsRequired": true
       }
     ],
@@ -655,22 +605,12 @@
         "IsRequired": true
       },
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Skip",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -692,7 +632,7 @@
       },
       {
         "Name": "dto",
-        "Type": "TournoisE_Sports.DTOs.CreateInscriptionDto",
+        "Type": "Esport.Application.DTOs.CreateInscriptionDto",
         "IsRequired": true
       }
     ],
@@ -712,24 +652,30 @@
         "IsRequired": true
       },
       {
-        "Name": "Page",
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "PageSize",
+        "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
-      },
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TournoisE_Sports.Controllers.TournoisController",
+    "Method": "DeleteInscription",
+    "RelativePath": "api/Tournois/inscriptions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Name": "Skip",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Take",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "$ref": "#/components/schemas/RegisterRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "$ref": "#/components/schemas/RegisterRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
+                "$ref": "#/components/schemas/RegisterRequest"
               }
             }
           }
@@ -45,17 +45,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
@@ -74,35 +74,21 @@
         ],
         "parameters": [
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -242,35 +228,21 @@
             }
           },
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -351,35 +323,21 @@
         ],
         "parameters": [
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -510,35 +468,21 @@
         ],
         "parameters": [
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           },
           {
@@ -868,35 +812,21 @@
         ],
         "parameters": [
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           },
           {
@@ -1067,35 +997,21 @@
             }
           },
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -1146,6 +1062,29 @@
         }
       }
     },
+    "/api/Tournois/inscriptions/{id}": {
+      "delete": {
+        "tags": [
+          "Tournois"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Tournois/{id}/matchs": {
       "get": {
         "tags": [
@@ -1162,35 +1101,21 @@
             }
           },
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
-            "name": "PageSize",
+            "name": "pageSize",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Take",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 10
             }
           }
         ],
@@ -1217,7 +1142,7 @@
             "format": "email"
           },
           "role": {
-            "minLength": 1,
+            "minLength": 2,
             "type": "string"
           }
         },
@@ -1264,17 +1189,15 @@
         "type": "object",
         "properties": {
           "nom": {
-            "maxLength": 100,
+            "maxLength": 150,
             "minLength": 2,
             "type": "string"
           },
           "editeur": {
-            "maxLength": 100,
             "type": "string",
             "nullable": true
           },
           "genre": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           }
@@ -1289,23 +1212,20 @@
         "type": "object",
         "properties": {
           "pseudo": {
-            "maxLength": 50,
+            "maxLength": 100,
             "minLength": 2,
             "type": "string"
           },
           "nom": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "prenom": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "email": {
             "type": "string",
-            "format": "email",
             "nullable": true
           },
           "equipeId": {
@@ -1353,11 +1273,12 @@
       },
       "CreateRoleDto": {
         "required": [
-          "name"
+          "nom"
         ],
         "type": "object",
         "properties": {
-          "name": {
+          "nom": {
+            "maxLength": 50,
             "minLength": 2,
             "type": "string"
           }
@@ -1393,7 +1314,8 @@
             "format": "double"
           },
           "statut": {
-            "$ref": "#/components/schemas/TournoiStatut"
+            "type": "integer",
+            "format": "int32"
           },
           "jeuId": {
             "maximum": 2147483647,
@@ -1404,7 +1326,7 @@
         },
         "additionalProperties": false
       },
-      "LoginDto": {
+      "LoginRequest": {
         "required": [
           "email",
           "password"
@@ -1423,7 +1345,7 @@
         },
         "additionalProperties": false
       },
-      "RegisterDto": {
+      "RegisterRequest": {
         "required": [
           "email",
           "password"
@@ -1441,15 +1363,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "TournoiStatut": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "UpdateEquipeDto": {
         "required": [
@@ -1477,17 +1390,15 @@
         "type": "object",
         "properties": {
           "nom": {
-            "maxLength": 100,
+            "maxLength": 150,
             "minLength": 2,
             "type": "string"
           },
           "editeur": {
-            "maxLength": 100,
             "type": "string",
             "nullable": true
           },
           "genre": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           }
@@ -1502,23 +1413,20 @@
         "type": "object",
         "properties": {
           "pseudo": {
-            "maxLength": 50,
+            "maxLength": 100,
             "minLength": 2,
             "type": "string"
           },
           "nom": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "prenom": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
           "email": {
             "type": "string",
-            "format": "email",
             "nullable": true
           },
           "equipeId": {
@@ -1581,7 +1489,8 @@
             "format": "double"
           },
           "statut": {
-            "$ref": "#/components/schemas/TournoiStatut"
+            "type": "integer",
+            "format": "int32"
           },
           "jeuId": {
             "maximum": 2147483647,

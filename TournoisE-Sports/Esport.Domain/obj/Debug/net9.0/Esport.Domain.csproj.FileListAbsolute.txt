@@ -1,0 +1,11 @@
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\bin\Debug\net9.0\Esport.Domain.deps.json
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\bin\Debug\net9.0\Esport.Domain.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\bin\Debug\net9.0\Esport.Domain.pdb
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.AssemblyInfoInputs.cache
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.AssemblyInfo.cs
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.csproj.CoreCompileInputs.cache
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\refint\Esport.Domain.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\Esport.Domain.pdb
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Domain\obj\Debug\net9.0\ref\Esport.Domain.dll

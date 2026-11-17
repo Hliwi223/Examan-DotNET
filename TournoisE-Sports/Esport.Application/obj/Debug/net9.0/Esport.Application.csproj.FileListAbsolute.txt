@@ -1,0 +1,15 @@
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.csproj.AssemblyReference.cache
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.AssemblyInfoInputs.cache
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.AssemblyInfo.cs
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.csproj.CoreCompileInputs.cache
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\bin\Debug\net9.0\Esport.Application.deps.json
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\bin\Debug\net9.0\Esport.Application.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\bin\Debug\net9.0\Esport.Application.pdb
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\bin\Debug\net9.0\Esport.Domain.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\bin\Debug\net9.0\Esport.Domain.pdb
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.A.CBA12230.Up2Date
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\refint\Esport.Application.dll
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\Esport.Application.pdb
+D:\IIT\DOTNET\TournoisE-Sports\Esport.Application\obj\Debug\net9.0\ref\Esport.Application.dll
