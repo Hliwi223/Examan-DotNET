@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="container">
+    <a routerLink="/tournois" class="navbar-brand">TOURNOIS E-SPORT</a>
+
+    @if (auth.isLoggedIn()) {
+      <div class="navbar-nav">
+        <a routerLink="/tournois" routerLinkActive="active" class="nav-link">Tournois</a>
+        <a routerLink="/equipes" routerLinkActive="active" class="nav-link">Équipes</a>
+        <a routerLink="/jeux" routerLinkActive="active" class="nav-link">Jeux</a>
+      </div>
+    }
+
+    <div class="nav-actions">
+      @if (auth.isLoggedIn()) {
+        <div class="user-info">
+          {{ auth.session?.email }}
+          <span class="roles-badge">
+            <span class="role-chip">{{ userRolesDisplay }}</span>
+          </span>
+        </div>
+      }
+      <button class="btn btn--ghost btn--sm" (click)="logout()">Déconnexion</button>
+      @if (!auth.isLoggedIn()) {
+        <a routerLink="/login" class="btn btn--primary btn--sm">Connexion</a>
+      }
+    </div>
+  </div>
+</nav>
+
+<main class="layout">
+  <router-outlet></router-outlet>
+</main>

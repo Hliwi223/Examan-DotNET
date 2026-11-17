@@ -1,0 +1,6 @@
+@TournoisE_Sports_HostAddress = http://localhost:5011
+
+GET {{TournoisE_Sports_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
